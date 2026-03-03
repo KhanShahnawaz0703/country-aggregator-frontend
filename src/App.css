@@ -1,38 +1,144 @@
-.App {
+/* ===============================
+   🌍 ROOT DESIGN SYSTEM
+================================= */
+:root {
+  --primary-gradient-start: #667eea;
+  --primary-gradient-end: #764ba2;
+
+  --card-bg: #ffffff;
+  --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+
+  --text-dark: #333;
+  --text-light: #ffffff;
+
+  --accent-color: #764ba2;
+  --button-bg: #ffffff;
+  --button-text: #764ba2;
+
+  --border-radius: 16px;
+  --transition-speed: 0.3s;
+
+  --font-main: 'Segoe UI', sans-serif;
+}
+
+/* ===============================
+   🌍 GLOBAL STYLES
+================================= */
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: linear-gradient(
+    135deg,
+    var(--primary-gradient-start),
+    var(--primary-gradient-end)
+  );
+  min-height: 100vh;
+  color: var(--text-light);
+}
+
+/* ===============================
+   🏠 APP CONTAINER
+================================= */
+.app-container {
+  padding: 50px 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ===============================
+   🏷 TITLE
+================================= */
+.title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 40px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* ===============================
+   🔎 SEARCH SECTION
+================================= */
+.search-section {
+  margin-bottom: 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.search-input {
+  padding: 14px;
+  width: 280px;
+  border-radius: var(--border-radius);
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-button {
+  padding: 14px 22px;
+  margin-left: 10px;
+  border-radius: var(--border-radius);
+  border: none;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition-speed);
+}
+
+.search-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   📊 DASHBOARD LAYOUT
+================================= */
+.dashboard {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+/* ===============================
+   🪪 CARD DESIGN
+================================= */
+.card {
+  background: var(--card-bg);
+  color: var(--text-dark);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  width: 360px;
+  box-shadow: var(--card-shadow);
+  text-align: left;
+  transition: var(--transition-speed);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: var(--accent-color);
+}
+
+/* ===============================
+   🏷 SECTION TITLE
+================================= */
+.section-title {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+/* ===============================
+   📱 RESPONSIVE
+================================= */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .card {
+    width: 90%;
   }
 }
