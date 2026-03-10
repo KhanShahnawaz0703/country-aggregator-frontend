@@ -17,15 +17,6 @@ const CountryCard = ({ data }) => {
         <strong>Currency:</strong> {data.currency.name} 
         ({data.currency.code}) {data.currency.symbol}
       </p>
-
-      <div>
-        <strong>Time Zones:</strong>
-        <ul>
-          {data.timezones.map((tz, index) => (
-            <li key={index}>{tz}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };

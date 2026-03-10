@@ -39,9 +39,6 @@ export const getCountrySummary = async (countryName) => {
     region: data?.region ?? null,
     subregion: data?.subregion ?? null,
     population: data?.population ?? null,
-    currency: data?.currency ?? null,
-
-    // keep your UI contract: timezones is an array
-    timezones: data?.timezones ?? (data?.timezone ? [data.timezone] : []),
+    currency: data?.currency ?? null
   };
 };
