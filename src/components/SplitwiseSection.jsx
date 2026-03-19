@@ -328,8 +328,17 @@
 import React, { useMemo, useState } from "react";
 import "../App.css";
 
-const API_URL =
-  "http://costsplitting-app-env.eba-cpt2wyzw.eu-north-1.elasticbeanstalk.com/split/weighted";
+// const API_URL =
+//   // "http://costsplitting-app-env.eba-cpt2wyzw.eu-north-1.elasticbeanstalk.com/split/weighted";
+//   process.env.REACT_APP_API_BASE_URL;
+
+//   console.log(process.env.REACT_APP_API_BASE_URL)
+
+//   const buildUrl = (countryName) =>
+//   `${API_URL}/split/weighted`;
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const buildUrl = () => `${API_BASE_URL}/api/split/weighted`;
 
 const SplitwiseSection = ({ currency, locationName, setLocationName }) => {
   const [description, setDescription] = useState("");
@@ -396,9 +405,73 @@ const SplitwiseSection = ({ currency, locationName, setLocationName }) => {
     return "";
   };
 
+  // const handleCalculate = async () => {
+  //   setError("");
+  //   setResult(null);
+
+  //   const validationError = validateInputs();
+  //   if (validationError) {
+  //     setError(validationError);
+  //     return;
+  //   }
+
+  //   const totalAmount = Number(amount);
+
+  //   const payload = {
+  //     total_amount: totalAmount,
+  //     participants: participants.map((p) => ({
+  //       name: p.name.trim(),
+  //       weight: Number(p.weight),
+  //     })),
+  //   };
+
+  //   try {
+  //     setLoading(true);
+
+  //     const res = await fetch(buildUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //       },
+  //       body: JSON.stringify(payload),
+  //     });
+
+  //     if (!res.ok) {
+  //       throw new Error(`API error (${res.status})`);
+  //     }
+
+  //     const data = await res.json();
+
+  //     // local breakdown (works regardless of API response shape)
+  //     const localBreakdown = participants.map((p) => {
+  //       const w = Number(p.weight);
+  //       const share = (totalAmount * w) / totalWeight;
+  //       return { name: p.name.trim(), weight: w, amount: share };
+  //     });
+
+  //     setResult({
+  //       description,
+  //       total: totalAmount,
+  //       totalWeight,
+  //       breakdown: localBreakdown,
+  //       api: data,
+  //     });
+  //   } catch (e) {
+  //     setError(e?.message || "Failed to calculate weighted split.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleCalculate = async () => {
     setError("");
     setResult(null);
+
+    if (!API_BASE_URL) {
+      setError("REACT_APP_API_BASE_URL is not set. Check your .env and restart the dev server.");
+      return;
+    }
 
     const validationError = validateInputs();
     if (validationError) {
@@ -419,7 +492,7 @@ const SplitwiseSection = ({ currency, locationName, setLocationName }) => {
     try {
       setLoading(true);
 
-      const res = await fetch(API_URL, {
+      const res = await fetch(buildUrl(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -429,7 +502,8 @@ const SplitwiseSection = ({ currency, locationName, setLocationName }) => {
       });
 
       if (!res.ok) {
-        throw new Error(`API error (${res.status})`);
+        const text = await res.text().catch(() => "");
+        throw new Error(`API error (${res.status}) ${text}`);
       }
 
       const data = await res.json();

@@ -1,14 +1,17 @@
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL ||
-  "http://country-aggregator-api-env.eba-6iq87h7d.us-east-1.elasticbeanstalk.com";
+  process.env.REACT_APP_API_BASE_URL;
+  // ||
+  // "http://country-aggregator-api-env.eba-6iq87h7d.us-east-1.elasticbeanstalk.com";
 
 // Adjust this path to match your FastAPI router endpoint.
 // Examples could be:
 //   /countries/{countryName}
 //   /countries/{countryName}/summary
 //   /country?name=...
-const buildUrl = (countryName) =>
-  `${API_BASE_URL}/countries/${encodeURIComponent(countryName)}/summary`;
+const buildUrl = (countryName) => `${API_BASE_URL}/api/country/summary?name=${encodeURIComponent(countryName)}`;
+
+// (countryName) =>
+//   `${API_BASE_URL}/countries/${encodeURIComponent(countryName)}/summary`;
 
 export const getCountrySummary = async (countryName) => {
   const res = await fetch(buildUrl(countryName), {
