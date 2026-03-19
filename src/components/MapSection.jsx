@@ -66,7 +66,7 @@ export default function MapSection({ locationName }) {
 
   return (
     <div className="card">
-      <div className="section-title">📍 Map (Free)</div>
+      <div className="section-title">📍 Map</div>
       <p>
         <strong>Location:</strong> {locationName || "—"}
       </p>
